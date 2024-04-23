@@ -1,4 +1,4 @@
-import producer.producer_interface as p
+import producer_interface as p
 import pika # type: ignore
 import os
 class mqProducer(p.mqProducerInterface):
@@ -12,11 +12,11 @@ class mqProducer(p.mqProducerInterface):
     def setupRMQConnection(self) -> None:
         # Set-up Connection to RabbitMQ service
         con_params = pika.URLParameters(os.environ["AMQP_URL"])
-        connection = pika.BlockingConnection(parameters=con_params)
+        self.connection = pika.BlockingConnection(parameters=con_params)
         # Establish Channel
-        channel = connection.channel()
+        self.channel = self.connection.channel()
         # Create the exchange if not already present
-        channel.exchange_declare(exchange=self.exchange_name) #exchange_type='direct'
+        self.channel.exchange_declare(exchange=self.exchange_name) #exchange_type='direct'
 
     def publishOrder(self, message: str) -> None:
         # Basic Publish to Exchange
