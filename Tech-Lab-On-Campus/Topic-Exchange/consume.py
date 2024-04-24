@@ -18,7 +18,8 @@ import sys
 from solution.consumer_sol import mqConsumer  # pylint: disable=import-error
 
 def main(sector: str, queueName: str) -> None:
-    
+    bindingKey= f"*.*.{sector}"
+    bindingKey.strip()
     # Implement Logic to Create Binding Key from the ticker and sector variable -  Step 2
     #
     #                       WRITE CODE HERE!!!
@@ -31,9 +32,7 @@ def main(sector: str, queueName: str) -> None:
 
 if __name__ == "__main__":
 
-    # Implement Logic to read the sector and queueName string from the command line and save them - Step 1
-    #
-    #                       WRITE CODE HERE!!!
-    #
+    sector = sys.argv[0]
+    queueName = sys.argv[1]
 
     sys.exit(main(sector,queue))
